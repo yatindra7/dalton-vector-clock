@@ -43,7 +43,7 @@ TODO
 ## Algorithm
 
 ### Initialization
-Each node in the DALTON system starts with a vector clock of size N (where N is the number of nodes), initialized to zero.
+Each node in the DALTON system starts with a vector clock of size N (where N is the number of nodes), initialized to zero, except it's own counter is set to 1.
 
 ### Event Handling
 #### Internal Event
@@ -55,12 +55,14 @@ When a node sends a message, it increments its own component in the vector clock
 #### Receive Event
 Upon receiving a message, a node updates its vector clock by taking the maximum of its current vector clock and the received vector clock for each component.
 
+#### Adding a Node
+The new node will have other nodes' counters initialized to 0, and it's own initialized to 1.
+
+#### Pruning Inactive Node
+In the night timeun a seperate algorithm where the nodes come to consensus on a removal of such a node.
+
 ### Pruning Inactive Nodes
 Every 24 hours, the system prunes out inactive nodes from its vector clocks. This is done by removing the components corresponding to inactive nodes from the vector clocks of all active nodes.
-
-### Adding a Node
-
-### Pruning Inactive Node
 
 ### Formal Notation
 
