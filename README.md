@@ -55,11 +55,12 @@ When a node sends a message, it increments its own component in the vector clock
 #### Receive Event
 Upon receiving a message, a node updates its vector clock by taking the maximum of its current vector clock and the received vector clock for each component.
 
-#### Adding a Node
-Formal Notation: Let $V_i$ be the vector clock of node $i$, and $N$ be the total number of nodes. When a new node $j$ is added, update $V_i$ for all $i$ as follows: $V_i := V_i \cup$, where $V_i \cup$ denotes the vector clock of node $i$ with an additional component of zero at the end.
-
 ### Pruning Inactive Nodes
 Every 24 hours, the system prunes out inactive nodes from its vector clocks. This is done by removing the components corresponding to inactive nodes from the vector clocks of all active nodes.
+
+### Adding a Node
+
+### Pruning Inactive Node
 
 ### Formal Notation
 
@@ -70,6 +71,10 @@ Let $V_i$ denote the vector clock of node (i), where $V_i = [v_{i1}, v_{i2}, ...
 - Send Event: $V_i[i] := V_i[i] + 1$ and send $V_i$ to the receiver.
 
 - Receive Event: Upon receiving $V_j$, update $V_i$ as follows: $V_i[k] := \max(V_i[k], V_j[k])$ for all $k$
+
+- Adding a Node: Let $V_i$ be the vector clock of node $i$, and $N$ be the total number of nodes. When a new node $j$ is added, update $V_i$ for all $i$ as follows: $V_i := V_i \cup [0]$, where $V_i \cup[0]$ denotes the vector clock of node $i$ with an additional component of zero at the end.
+
+- Pruning Inactive Node: Let $I$ be the set of inactive nodes. For each node, update $V_i$ as follows: $V_i := V_i \setminus I$, where $V_i \setminus I$ denotes the vector clock of node $i$ with the components corresponding to inactive nodes removed.
 
 ### Assumption
 - FIFO Delivery: The algorithm assumes FIFO delivery of messages, which is a fundamental requirement for vector clocks to function correctly. This ensures that messages are received in the order they were sent, allowing for accurate updates of vector clocks upon receiving messages.
