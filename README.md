@@ -38,7 +38,45 @@ And as mentioned by the [mixed-vector clock paper](https://arxiv.org/pdf/1901.06
 
 ## Distributed systems using vector clocks
 
-TODO
+### Amazon DynamoDB
+DynamoDB, a fully managed NoSQL database service by Amazon, uses vector clocks to track versioning and reconcile conflicting updates among replicas across multiple data centers. 
+
+DynamoDB maintains a vector clock associated with each item stored in the database. This vector clock consists of a list of (node, counter) pairs, where each pair represents the version of the item observed by a particular node. During updates, DynamoDB increments the counter corresponding to the local node and merges vector clocks when reconciling conflicting updates from different nodes.
+
+### Riak
+Riak, a distributed NoSQL database, uses vector clocks to track the causal relationships between different versions of key-value pairs stored across its cluster. Each object in Riak is associated with a vector clock, which is updated on each write operation. During reads, Riak compares the vector clock of the requested object with the vector clocks of other replicas to determine causality and resolve conflicts.
+
+### Google's Bigtable
+
+Bigtable, a distributed storage system used by Google for large-scale data processing,  employs vector clocks to maintain versioning and consistency among replicas of data cells stored in its distributed storage system. Each data cell in Bigtable is associated with a vector clock, which is updated whenever the cell is modified. Vector clocks are used to detect conflicts and reconcile concurrent updates during read and write operations.
+
+### Apache Cassandra
+
+Cassandra, a highly scalable distributed database management system, utilizes vector clocks to track the versioning and ordering of updates to data partitions distributed across its cluster. Each row in Cassandra is associated with a vector clock, which is updated on each write operation. During reads, Cassandra compares vector clocks to determine the causal relationships between different versions of the data and resolve conflicts.
+
+### Git
+
+Git, a distributed version control system, uses vector clocks (known as commit hashes) to uniquely identify different versions of files and directories within a repository. Each commit in Git includes a cryptographic hash of its content and parent commits, forming a directed acyclic graph that represents the history and causality of changes in the repository.
+
+### Amazon S3 (Simple Storage Service)
+
+S3, a scalable object storage service provided by Amazon Web Services, employs vector clocks to manage versioning and consistency among replicas of objects stored across multiple data centers. Each object version is associated with a timestamp and a unique identifier, which helps S3 track the ordering of updates and resolve conflicts during concurrent writes.
+
+### Apache Kafka
+
+Kafka, a distributed streaming platform, uses offsets (similar to sequence numbers) to establish ordering guarantees and ensure message delivery consistency across partitions. Each message in Kafka is assigned a unique offset, which is used to track the sequence of messages within a partition and detect inconsistencies or message reordering.
+
+### Apache HBase
+
+HBase, a distributed, scalable, and consistent NoSQL database built on top of Hadoop, employs vector clocks to maintain consistency and versioning among replicas of data stored in its distributed tables. Each cell in an HBase table is associated with a vector clock, which is updated on each write operation. Vector clocks help HBase track the causal relationships between different versions of data and resolve conflicts during reads and writes.
+
+### Redis
+
+Redis, an in-memory data structure store, can be configured to use vector clocks for conflict resolution in its distributed implementation (Redis Cluster). Vector clocks help Redis ensure eventual consistency and resolve conflicts among replicas of distributed data structures such as sets, lists, and sorted sets.
+
+### Couchbase
+
+Couchbase, a distributed NoSQL database, utilizes vector clocks to maintain consistency and versioning across replicas of data stored in its distributed key-value store. Each document in Couchbase is associated with a vector clock, which is updated on each write operation. Vector clocks help Couchbase track the causal relationships between different versions of documents and resolve conflicts during reads and writes.
 
 ## Algorithm
 
